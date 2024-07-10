@@ -1,0 +1,67 @@
+.results {
+  display: grid;
+  column-gap: 14px;
+  row-gap: 14px;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  margin-top: 50px;
+  justify-content: space-around;
+}
+
+.results > div {
+  width: 100%;
+  padding-top: 100%; /* This makes the div a square */
+  position: relative;
+  border-radius: 8px; /* Optional: To give the squares rounded corners */
+  overflow: hidden; /* Optional: To ensure content doesn't overflow */
+  background-color: #f0f0f0; /* Optional: Background color for visibility */
+}
+
+.results > div > * {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+img.listing-photo {
+  max-width: 100%;
+  height: auto;
+}
+
+input[type="text"] {
+  border: solid 1px var(--primary-color);
+  padding: 10px;
+  border-radius: 8px;
+  margin-right: 4px;
+  display: inline-block;
+  width: 30%;
+}
+
+button {
+  padding: 10px;
+  border: solid 1px var(--primary-color);
+  background: var(--primary-color);
+  color: white;
+  border-radius: 8px;
+}
+
+@media (min-width: 300px) and (max-width: 368px) {
+  .results {
+      grid-template-columns: repeat(2, 1fr);
+  }
+  input[type="text"] {
+      width: 70%;
+  }   
+}
+
+@media (max-width: 199px) {
+  .results {
+      grid-template-columns: 1fr;
+  }    
+}

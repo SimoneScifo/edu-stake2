@@ -1,0 +1,14 @@
+<section class="listing">
+    <img
+      class="listing-photo"
+      [src]="course.imageUrl"
+      alt="Presentation image of {{ course.title }}"
+      crossorigin
+    />
+    <h2 class="listing-heading">{{ course.title }}</h2>
+    <p class="listing-course">
+      <span class="icon">⭐️</span> {{ course.rating }} 
+      <span class="icon">💬</span> {{ course.reviews }}
+    </p>
+    <a [routerLink]="['/course-detail', course.id]">Learn More</a>
+</section>

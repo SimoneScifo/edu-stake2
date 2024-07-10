@@ -1,0 +1,43 @@
+:host {
+    --content-padding: 10px;
+    --logo-size: 40px; /* Adjust the logo size as needed */
+  }
+  
+  header {
+    display: flex; /* Changed to flex for better alignment */
+    align-items: center; /* Vertically center the content */
+    height: 60px;
+    padding: var(--content-padding);
+    box-shadow: 0px 5px 25px var(--shadow-color);
+    width: 100%;
+  }
+  
+  .brand-logo {
+    width: var(--logo-size);
+    height: var(--logo-size);
+    object-fit: cover; /* Ensures the image covers the entire area without distortion */
+    border-radius: 8px; /* Optional: Add rounded corners if desired */
+  }
+  
+  .content {
+    padding: var(--content-padding);
+  }
+  
+  a {
+    text-decoration: none; /* Ensures the link doesn't have an underline */
+  }
+  
+  .button-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  button {
+    padding: 10px;
+    border: solid 1px var(--primary-color);
+    background: var(--primary-color);
+    color: white;
+    border-radius: 8px;
+    margin-left: 10px; /* Space between multiple buttons, if needed */
+  }
+  

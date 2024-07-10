@@ -1,0 +1,29 @@
+<article>
+    <img class="listing-photo" [src]="course?.imageUrl" alt="Presentation image of {{ course?.title }}" crossorigin />
+    <section class="listing-description">
+        <h2 class="listing-heading">{{ course?.title }}</h2>
+        <p class="listing-course">
+            <span class="icon">⭐️</span> {{ course?.rating }} 
+            <span class="icon">💬</span> {{ course?.reviews }}
+          </p>
+    </section>
+    <section class="listing-features">
+        <h2 class="section-heading">About this course</h2>
+        <ul>
+            <li>Instructor: {{ course?.instructor }}</li>
+            <li>Price <span class="icon">💰</span>: {{ course?.price }}</li>
+        </ul>
+    </section>
+    <section class="listing-apply">
+        <h2 class="section-heading">Apply now to start learning</h2>
+        <form [formGroup]="applyForm" (submit)="submitApplication()">
+            <label for="first-name">First Name</label>
+            <input id="first-name" type="text" formControlName="firstName" />
+            <label for="last-name">Last Name</label>
+            <input id="last-name" type="text" formControlName="lastName" />
+            <label for="email">Email</label>
+            <input id="email" type="email" formControlName="email" />
+            <button type="submit" class="primary">Apply now</button>
+        </form>
+    </section>
+</article>
