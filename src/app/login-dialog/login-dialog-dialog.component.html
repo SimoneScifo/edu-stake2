@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>Sign-in</h2>
+<p>Please enter your credentials<p>
+<mat-dialog-content>
+  <p>Email</p>
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input matInput [(ngModel)]="animal" />
+  </mat-form-field>
+  <p>Password</p>
+  <mat-form-field>
+    <mat-label>Password</mat-label>
+    <input matInput [(ngModel)]="animal" />
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="animal()" cdkFocusInitial>Sign-in</button>
+</mat-dialog-actions>
