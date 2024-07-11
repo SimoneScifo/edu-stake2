@@ -22,4 +22,15 @@ export class CourseService {
       `Course application received: firstName: ${firstName}, lastName: ${lastName}, email: ${email}.`,
     );
   }
+
+  // Simulate a payment process
+  processPayment(courseId: number): Promise<boolean> {
+    return new Promise((resolve) => {
+      // Simulate payment processing delay
+      setTimeout(() => {
+        // Here we simulate a successful payment
+        resolve(true);
+      }, 2000); // Simulate 2 seconds delay for payment processing
+    });
+  }
 }

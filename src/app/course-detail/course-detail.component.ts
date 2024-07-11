@@ -1,14 +1,15 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { CourseService } from '../course.service';
 import { Course } from '../course';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { SafeUrlPipeModule } from '../safe-url/safe-url.pipe.module';
 
 @Component({
   selector: 'app-course-detail',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, SafeUrlPipeModule],
   templateUrl: './course-detail.component.html',
   styleUrl: './course-detail.component.css'
 })
@@ -21,6 +22,11 @@ export class CourseDetailComponent {
     lastName: new FormControl(''),
     email: new FormControl(''),
   });
+
+  paymentConfirmed: boolean = false;
+  paymentError: boolean = false;
+  showPaymentModal: boolean = false;
+  showStakeProposalModal: boolean = false;
 
   constructor() {
     const courseId = parseInt(this.route.snapshot.params['id'], 10);
@@ -36,4 +42,37 @@ export class CourseDetailComponent {
       this.applyForm.value.email ?? '',
     );
   }
+  processPayment() {
+    if (this.course) {
+      this.courseService.processPayment(this.course.id).then((success) => {
+        if (success) {
+          this.paymentConfirmed = true;
+          this.paymentError = false;
+          this.showPaymentModal = true;
+        } else {
+          this.paymentConfirmed = false;
+          this.paymentError = true;
+          this.showPaymentModal = false;
+        }
+      });
+    }
+  }
+
+  handlePaymentConfirmation(success: boolean) {
+    this.showPaymentModal = false;
+    if (success) {
+      this.showStakeProposalModal = true;
+      this.paymentConfirmed = true;
+    } else {
+      this.paymentError = true;
+    }
+  }
+
+  handleStakeConfirmation(amount: number) {
+    this.showStakeProposalModal = false;
+    if (amount > 0) {
+      alert(`Staked ${amount} tokens on Solana blockchain!`);
+    }
+  }
 }
+
