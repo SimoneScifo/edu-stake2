@@ -48,6 +48,11 @@ export class LoginPopupComponent {
     this.dialogRef.close();
   }
 
+
+  async submitLogin() {
+  
+  }
+
   async connectWalletLogin() {
     if ((window as any).solana && (window as any).solana.isPhantom) {
       try {

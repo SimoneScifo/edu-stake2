@@ -14,7 +14,7 @@
 <mat-dialog-actions>
   <button mat-button (click)="onNoClick()">No Thanks</button>
   <button mat-button (click)="connectWalletLogin()" cdkFocusInitial>Collega Wallet Phantom</button>
-  <button mat-button [mat-dialog-close]="name()" cdkFocusInitial>Accedi</button>
+  <button mat-button [mat-dialog-close]="submitLogin()" cdkFocusInitial>Accedi</button>
 </mat-dialog-actions>
       <input type="hidden" id="login-wallet" class="input-field" placeholder="Wallet Public Key">
 
