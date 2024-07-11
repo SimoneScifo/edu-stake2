@@ -1,0 +1,78 @@
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    height: 100vh;
+    margin: 0;
+    
+}
+
+.login-popup {
+    display: block; /* Imposta display su block per testare la visibilità */
+    position: absolute;
+    top: 60px; /* Aggiusta questa posizione secondo necessità */
+    right: 10px; /* Aggiusta questa posizione secondo necessità */
+    z-index: 1000;
+    background-color: lightblue; /* Sfondo celeste */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    width: 300px;
+    position: relative;
+}
+
+h1 {
+    color: #333;
+}
+
+.logo {
+    width: 100px;
+    margin-bottom: 20px;
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn-login {
+    background: #6a11cb;
+    color: white;
+}
+
+.btn-register {
+    background: #2575fc;
+    color: white;
+}
+
+.form-container {
+    display: none;
+    margin-top: 20px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.form-container.show {
+    display: block;
+    opacity: 1;
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
