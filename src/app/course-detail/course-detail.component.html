@@ -1,28 +1,48 @@
 <article>
-    <img class="listing-photo" [src]="course?.imageUrl" alt="Presentation image of {{ course?.title }}" crossorigin />
-    <section class="listing-description">
-        <h2 class="listing-heading">{{ course?.title }}</h2>
-        <p class="listing-course">
-            <span class="icon">⭐️</span> {{ course?.rating }} 
-            <span class="icon">💬</span> {{ course?.reviews }}
-          </p>
-    </section>
-    <section class="listing-features">
-        <h2 class="section-heading">About this course</h2>
-        <ul>
-            <li>Instructor: {{ course?.instructor }}</li>
-            <li>Price <span class="icon">💰</span>: {{ course?.price }}</li>
-        </ul>
-    </section>
-    <section class="listing-apply">
-        <h2 class="section-heading">Apply now to start learning</h2>
-    </section>
-    <section class="payment">
-        <h2 class="section-heading">Buy course</h2>
-        <button mat-raised-button (click)="openPaymentDialog()">Pay</button>
-        <div *ngIf="paymentError" class="alert alert-danger mt-3">Payment failed. Please try again.</div>
-        <div *ngIf="isPaymentConfirmed" class="embed-responsive embed-responsive-16by9 mt-3">
-          <iframe class="embed-responsive-item" [src]="course?.videoUrl ?? '' | safeUrl" allowfullscreen></iframe>
-        </div>   
-    </section>
+  <img
+    class="listing-photo"
+    [src]="course?.imageUrl"
+    alt="Presentation image of {{ course?.title }}"
+    crossorigin
+  />
+  <section class="listing-description">
+    <h2 class="listing-heading">{{ course?.title }}</h2>
+    <p class="listing-course">
+      <span class="icon">⭐️</span> {{ course?.rating }}
+      <span class="icon">💬</span> {{ course?.reviews }}
+    </p>
+  </section>
+  <section class="listing-features">
+    <h2 class="section-heading">About this course</h2>
+    <ul>
+      <li>Instructor: {{ course?.instructor }}</li>
+      <li>Price <span class="icon">💰</span>: {{ course?.price }}</li>
+    </ul>
+  </section>
+  <section class="listing-apply">
+  </section>
+  <section class="payment">
+    <div
+      *ngIf="isPaymentConfirmed"
+      class="embed-responsive embed-responsive-16by9 mt-3"
+    >
+      <iframe
+        class="embed-responsive-item"
+        [src]="course?.videoUrl ?? '' | safeUrl"
+        allowfullscreen
+      ></iframe>
+    </div>
+
+    <!-- Conditionally show the payment button if payment is not completed -->
+    <h2 class="section-heading" *ngIf="!isPaymentConfirmed">Buy course</h2>
+    <button
+      mat-raised-button
+      *ngIf="!isPaymentConfirmed"
+      (click)="openPaymentDialog()"
+    >Pay</button>
+
+    <div *ngIf="paymentError" class="alert alert-danger mt-3">
+      Payment failed. Please try again.
+    </div>
+  </section>
 </article>

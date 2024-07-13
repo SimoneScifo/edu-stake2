@@ -1,4 +1,7 @@
-<h2 mat-dialog-title>We are almost there 😁</h2>
+<h2 mat-dialog-title>Pay for {{ data.course.title }}</h2>
+<div mat-dialog-content>
+  <p>Price: {{ data.course.price}}</p>
+</div>
 <mat-form-field>
   <mat-label>PublicKey</mat-label>
   <!-- <input matInput [(ngModel)]="PublicKey" /> -->
@@ -13,38 +16,6 @@
 </mat-form-field>
 <button mat-button (click)="connectWalletLogin()">Connect Wallet</button>
 <mat-dialog-actions>
-  <button mat-button (click)="submitPayment()" cdkFocusInitial>Pay</button>
+  <button mat-button (click)="onPayClick()" cdkFocusInitial>Pay</button>
 </mat-dialog-actions>
 <input type="hidden" id="login-wallet" class="input-field" placeholder="Wallet Public Key">
-
-    <!-- <div id="register-form" class="form-container">
-      <h2>Registrati</h2>
-      <input type="text" id="register-username" class="input-field" placeholder="Username">
-      <input type="email" id="register-email" class="input-field" placeholder="Email">
-      <input type="password" id="register-password" class="input-field" placeholder="Password">
-      <button class="btn btn-register" (click)="connectWallet()">Collega Wallet</button>
-      <input type="hidden" id="register-wallet" class="input-field" placeholder="Wallet Public Key">
-      <button class="btn btn-register" (click)="submitRegister()">Registrati</button>
-    </div> -->
-
-
-
-
-<!-- <h2 mat-dialog-title>Sign-in</h2>
-<p>Please enter your credentials<p>
-<mat-dialog-content>
-  <p>Email</p>
-  <mat-form-field>
-    <mat-label>Email</mat-label>
-    <input matInput [(ngModel)]="email" />
-  </mat-form-field>
-  <p>Password</p>
-  <mat-form-field>
-    <mat-label>Password</mat-label>
-    <input matInput [(ngModel)]="password" />
-  </mat-form-field>
-</mat-dialog-content>
-<mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button [mat-dialog-close]="name()" cdkFocusInitial>Sign-in</button>
-</mat-dialog-actions> -->

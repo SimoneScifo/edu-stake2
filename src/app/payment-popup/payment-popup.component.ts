@@ -45,7 +45,6 @@ export interface DialogData {
 export class PaymentPopupComponent {
   route: ActivatedRoute = inject(ActivatedRoute);
 
-  isPaymentConfirmed: boolean = false;
   courseService = inject(CourseService);
   course: Course | undefined;
   constructor(
@@ -53,19 +52,15 @@ export class PaymentPopupComponent {
     @Inject(MAT_DIALOG_DATA) public data: { course: Course }
   ) {this.course = data.course;}
 
-  submitPayment() {
+  onPayClick() {
     if (this.course) {
       this.courseService.processPayment(this.course.id).then((success) => {
         if (success) {
-          this.isPaymentConfirmed = true;
-        } else {
-          // this.paymentConfirmed = false;
-          // this.paymentError = true;
-          // this.showPaymentModal = false;
-        }
+          console.log('Payment successful');
+          this.dialogRef.close(true);
+        } 
       });
     }
-    this.dialogRef.close(this.isPaymentConfirmed);
   }
 
   async connectWalletLogin() {
