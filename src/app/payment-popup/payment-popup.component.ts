@@ -13,11 +13,12 @@ import {
 
 import { Course } from '../course';
 import { CourseService } from '../course.service';
-
 import { ActivatedRoute } from '@angular/router';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { P } from '@angular/cdk/keycodes';
+import { SafeUrlPipeModule } from '../safe-url/safe-url.pipe.module';
+
 
 export interface DialogData {
   publickey: string;
@@ -37,6 +38,7 @@ export interface DialogData {
     MatDialogContent,
     MatDialogActions,
     MatDialogClose,
+    SafeUrlPipeModule,
   ],
   templateUrl: './payment-popup.component.html',
   styleUrl: './payment-popup.component.css'
@@ -48,10 +50,6 @@ export class PaymentPopupComponent {
   readonly data = inject<DialogData>(MAT_DIALOG_DATA);
   readonly PublicKey = model(this.data.publickey);
   readonly email = model(this.data.email);
-
-
-  course: Course | undefined;
-  courseService = inject(CourseService);
 
   constructor() {
     const course = this.route
