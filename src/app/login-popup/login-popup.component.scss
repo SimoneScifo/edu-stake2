@@ -3,76 +3,82 @@ body {
     background: linear-gradient(to right, #6a11cb, #2575fc);
     height: 100vh;
     margin: 0;
-    
-}
-
-.login-popup {
-    display: block; /* Imposta display su block per testare la visibilità */
+  }
+  
+  .login-popup {
+    display: block;
     position: absolute;
-    top: 60px; /* Aggiusta questa posizione secondo necessità */
-    right: 10px; /* Aggiusta questa posizione secondo necessità */
+    top: 60px;
+    right: 10px;
     z-index: 1000;
-    background-color: lightblue; /* Sfondo celeste */
+    background-color: lightblue;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.container {
-    background: white;
-    padding: 30px;
-    border-radius: 10px;
-    text-align: center;
-    width: 300px;
-    position: relative;
-}
-
-h1 {
+  }
+  
+  h1 {
     color: #333;
-}
-
-.logo {
-    width: 100px;
+    margin-bottom: 10px;
+  }
+  
+  .notice-message {
+    background-color: #dfefff;
+    color: #003366;
+    font-size: 14px;
     margin-bottom: 20px;
-}
-
-.btn {
-    display: block;
-    width: 100%;
     padding: 10px;
-    margin: 10px 0;
-    border: none;
     border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.btn-login {
-    background: #6a11cb;
-    color: white;
-}
-
-.btn-register {
-    background: #2575fc;
-    color: white;
-}
-
-.form-container {
-    display: none;
-    margin-top: 20px;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-}
-
-.form-container.show {
-    display: block;
-    opacity: 1;
-}
-
-.input-field {
+    text-align: center;
+  }
+  
+  .mat-form-field {
+    width: 100%;
+    background-color: #ece0f4;
+    border-radius: 5px;
+  }
+  
+  .mat-form-field.full-width {
+    width: 100%;
+  }
+  
+  .input-field {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 5px;
-}
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 10px;
+  }
+  
+  .mat-dialog-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .action-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  button.mat-button {
+    flex: 1;
+    margin: 0 5px;
+  }
+  
+  button.mat-button.login-button {
+    background: #6a11cb;
+    color: white;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  

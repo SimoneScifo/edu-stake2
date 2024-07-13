@@ -1,19 +1,20 @@
 <h1 mat-dialog-title>Login</h1>
-<div mat-dialog-content>
-  <mat-form-field appearance="fill">
+<p class="notice-message">
+  Use account <strong>admin</strong> and password <strong>admin</strong> to continue. 🚀
+</p>
+  <mat-form-field>
     <mat-label>Username</mat-label>
-    <input matInput [(ngModel)]="username">
+    <input matInput [(ngModel)]="username" class="input-field">
   </mat-form-field>
 
-  <mat-form-field appearance="fill">
+  <mat-form-field>
     <mat-label>Password</mat-label>
-    <input matInput [(ngModel)]="password" type="password">
+    <input matInput [(ngModel)]="password" type="password" class="input-field">
   </mat-form-field>
 
   <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
-</div>
-<div mat-dialog-actions>
+<div mat-dialog-actions class="action-buttons">
   <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button (click)="connectWalletLogin()" cdkFocusInitial>Collega Wallet Phantom</button>
-  <button mat-button (click)="onLoginClick()">Login</button>
+  <button mat-button (click)="connectWalletLogin()">Connect Wallet Phantom</button>
+  <button mat-button (click)="onLoginClick()" class="login-button">Login</button>
 </div>
