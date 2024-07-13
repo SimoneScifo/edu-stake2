@@ -23,7 +23,7 @@
   </section>
   <section class="payment">
     <div *ngIf="isPaymentConfirmed" class="embed-responsive embed-responsive-16by9 mt-3">
-    <p>Staked Token Amount: {{ selectedTokenAmount }}</p>
+    <p>Staked Token Amount: {{ stakedTokenAmount }}</p>
       <iframe
         class="embed-responsive-item"
         [src]="course?.videoUrl ?? '' | safeUrl"

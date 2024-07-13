@@ -21,11 +21,12 @@ import {
 
 import { Course } from '../course';
 import { CourseService } from '../course.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { SafeUrlPipeModule } from '../safe-url/safe-url.pipe.module';
 import { MatSliderModule } from '@angular/material/slider';
+import { Router } from '@angular/router';
 export interface DialogData {
   publickey: string;
   email: string;
@@ -57,7 +58,8 @@ export class PaymentPopupComponent {
 
   constructor(
     public dialogRef: MatDialogRef<PaymentPopupComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { course: Course }
+    @Inject(MAT_DIALOG_DATA) public data: { course: Course },
+    private router: Router
   ) {
     this.course = data.course;
   }
@@ -67,10 +69,9 @@ export class PaymentPopupComponent {
       if (this.course) {
         this.courseService.processPayment(this.course.id).then((success) => {
           if (success) {
-            this.dialogRef.close({
-              status: 'success',
-              tokenAmount: this.selectedTokenAmount,
-            });
+            this.dialogRef.close({status: 'success'});
+
+            this.router.navigate(['/app-thank-you-page']);
           }
         });
       }

@@ -33,7 +33,7 @@ export class CourseDetailComponent implements OnInit {
   paymentError: boolean = false;
   showPaymentModal: boolean = false;
   showStakeProposalModal: boolean = false;
-  selectedTokenAmount: number = 0;
+  stakedTokenAmount: number = 0;
 
 
   constructor(public dialog: MatDialog) {
@@ -55,7 +55,7 @@ export class CourseDetailComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result && result.status === 'success') {
         this.isPaymentConfirmed = true;
-        this.selectedTokenAmount = result.tokenAmount;
+        this.stakedTokenAmount = result.tokenAmount;
       }
     });
   }

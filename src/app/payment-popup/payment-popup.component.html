@@ -1,12 +1,12 @@
 <h2 mat-dialog-title>Pay for {{ data.course.title }}</h2>
 <div mat-dialog-content>
   <p>Price: {{ data.course.price}}</p>
-  <mat-slider min="0" max="100" step="1" showTickMarks discrete>
+  <!-- <mat-slider min="0" max="100" step="1" showTickMarks discrete>
     <input matSliderThumb [(ngModel)]="selectedTokenAmount">
   </mat-slider>
   <p>Final price 💰: {{ selectedTokenAmount + data.course.price }}</p>
   <p>Possible reward 🎉: {{ selectedTokenAmount * 0.1 }}</p>
-  <p>Possible penalty 😰: {{ selectedTokenAmount * 0.05 }}</p>
+  <p>Possible penalty 😰: {{ selectedTokenAmount * 0.05 }}</p> -->
 </div>
 <mat-form-field>
   <mat-label>PublicKey</mat-label>
