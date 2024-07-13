@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, model, signal} from '@angular/core';
+import {ChangeDetectionStrategy, ModelSignal,Component, inject, model, signal} from '@angular/core';
 import {FormsModule,FormGroup, FormControl} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {
@@ -10,19 +10,23 @@ import {
   MatDialogRef,
   MatDialogTitle,
 } from '@angular/material/dialog';
+
+import { Course } from '../course';
+import { CourseService } from '../course.service';
+
+import { ActivatedRoute } from '@angular/router';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+import { P } from '@angular/cdk/keycodes';
 
 export interface DialogData {
-  name: string;
+  publickey: string;
   email: string;
-  password: string;
 }
 
+
 @Component({
-  selector: 'app-login-popup',
-  templateUrl: './login-popup.component.html',
-  styleUrls: ['./login-popup.component.scss'],
+  selector: 'app-payment-popup',
   standalone: true,
   imports: [
     MatFormFieldModule,
@@ -34,23 +38,32 @@ export interface DialogData {
     MatDialogActions,
     MatDialogClose,
   ],
+  templateUrl: './payment-popup.component.html',
+  styleUrl: './payment-popup.component.css'
 })
 
-export class LoginPopupComponent {
-  readonly dialogRef = inject(MatDialogRef<LoginPopupComponent>);
+export class PaymentPopupComponent {
+  route: ActivatedRoute = inject(ActivatedRoute);
+  readonly dialogRef = inject(MatDialogRef<PaymentPopupComponent>);
   readonly data = inject<DialogData>(MAT_DIALOG_DATA);
-  readonly name = model(this.data.name);
+  readonly PublicKey = model(this.data.publickey);
   readonly email = model(this.data.email);
-  readonly password = model(this.data.password);
 
 
-  onNoClick(): void {
-    this.dialogRef.close();
+  course: Course | undefined;
+  courseService = inject(CourseService);
+
+  constructor() {
+    const course = this.route
+  }  
+
+
+  getPublicKey() {
+
   }
 
+  submitPayment() {
 
-  async submitLogin() {
-  
   }
 
   async connectWalletLogin() {
@@ -61,7 +74,7 @@ export class LoginPopupComponent {
         (document.getElementById('login-wallet') as HTMLInputElement).value = walletPublicKey;
         alert(`Wallet collegato: ${walletPublicKey}`);
         this.submitWalletLogin(walletPublicKey);
-        console.log('Wallet connected:', walletPublicKey);        
+        console.log('Wallet connected:', walletPublicKey);
       } catch (err) {
         console.error('Failed to connect to wallet:', err);
       }
@@ -90,4 +103,5 @@ export class LoginPopupComponent {
       console.error('Error:', error);
     }
   }
+
 }

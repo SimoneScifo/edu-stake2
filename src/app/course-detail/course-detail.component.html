@@ -29,10 +29,11 @@
     <section class="payment">
         <h2 class="section-heading">Buy course</h2>
         <p>Pay with your wallet</p>
-        <button *ngIf="!paymentConfirmed" class="btn btn-primary" (click)="processPayment()">Pay with wallet</button>
+        <app-payment-dialog></app-payment-dialog>
+      <!--   <button *ngIf="!paymentConfirmed" class="btn btn-primary" (click)="processPayment()">Pay with wallet</button>
         <div *ngIf="paymentError" class="alert alert-danger mt-3">Payment failed. Please try again.</div>
-        <div *ngIf="paymentConfirmed" class="embed-responsive embed-responsive-16by9 mt-3">
+       <div *ngIf="paymentConfirmed" class="embed-responsive embed-responsive-16by9 mt-3">
           <iframe class="embed-responsive-item" [src]="course?.videoUrl ?? '' | safeUrl" allowfullscreen></iframe>
-        </div>
+        </div> -->
     </section>
 </article>
