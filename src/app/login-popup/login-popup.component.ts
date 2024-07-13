@@ -1,4 +1,5 @@
-import {ChangeDetectionStrategy, Component, inject, model, signal} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {ChangeDetectionStrategy, Component, Inject, model, signal} from '@angular/core';
 import {FormsModule,FormGroup, FormControl} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {
@@ -33,24 +34,31 @@ export interface DialogData {
     MatDialogContent,
     MatDialogActions,
     MatDialogClose,
+    CommonModule
   ],
 })
 
 export class LoginPopupComponent {
-  readonly dialogRef = inject(MatDialogRef<LoginPopupComponent>);
-  readonly data = inject<DialogData>(MAT_DIALOG_DATA);
-  readonly name = model(this.data.name);
-  readonly email = model(this.data.email);
-  readonly password = model(this.data.password);
+  username: string = '';
+  password: string = '';
+  errorMessage: string = '';
 
+  constructor(
+    public dialogRef: MatDialogRef<LoginPopupComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {}
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
 
-  async submitLogin() {
-  
+  onLoginClick(): void {
+    if (this.username === 'admin' && this.password === 'admin') {
+      this.dialogRef.close({ username: this.username, password: this.password });
+    } else {
+      this.errorMessage = 'Invalid username or password';
+    }
   }
 
   async connectWalletLogin() {

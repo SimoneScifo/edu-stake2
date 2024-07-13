@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, model, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, model, signal, OnInit, Output, EventEmitter, ChangeDetectorRef} from '@angular/core';
 import {FormsModule,FormGroup, FormControl} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {
@@ -13,6 +13,8 @@ import {
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { LoginPopupComponent } from '../login-popup/login-popup.component';
+import { AuthService } from '../auth/auth.service';
+import { CommonModule } from '@angular/common';
 
 export interface DialogData {
   animal: string;
@@ -22,28 +24,49 @@ export interface DialogData {
 @Component({
   selector: 'app-login-button',
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
+  imports: [MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, CommonModule],
   templateUrl: './login-button.component.html',
   styleUrl: './login-button.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginButtonComponent {
+export class LoginButtonComponent implements OnInit {
+  isLoggedIn = false;
   readonly animal = signal('');
   readonly name = model('');
   readonly dialog = inject(MatDialog);
+  @Output() paymentConfirmed = new EventEmitter<boolean>();
   
+  constructor(private authService: AuthService, private cdr: ChangeDetectorRef) {}
+
+  ngOnInit(): void {
+    this.authService.isAuthenticated().subscribe(isLoggedIn => {
+      this.isLoggedIn = isLoggedIn;
+      this.cdr.detectChanges();
+    });
+  }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(LoginPopupComponent, {
-      data: {name: this.name(), email: this.animal()},
+      data: { username: '', password: '' }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      if (result !== undefined) {
-        this.animal.set(result);
+      console.log('Check:', result);
+      this.paymentConfirmed.emit(true);
+      if (result) {
+        this.authService.login(result.username, result.password).subscribe(success => {
+          if (success) {
+            console.log('Logged in successfully');
+            this.isLoggedIn = true;
+          }
+        });
       }
     });
+  }
+
+  logout(): void {
+    console.log('Logout');
+    this.authService.logout();
   }
 
   async submitRegister() {
@@ -63,31 +86,8 @@ export class LoginButtonComponent {
   
     try {
       console.log('Invio della richiesta a http://127.0.0.1:4200/register');
-      //const response = await fetch('http://127.0.0.1:4200/register', options);
-  
-      //if (!response.ok) {
-      //  throw new Error(`HTTP error! status: ${response.status}`);
-      //}
-  
-      //const contentType = response.headers.get('content-type');
-      // console.log('Content-Type:', contentType);
-  
-      // if (!contentType || !contentType.includes('text/plain')) {
-      //   const textResponse = await response.text();
-      //   console.error('La risposta non è in formato text/plain:', textResponse);
-      //   throw new TypeError("La risposta non è in formato text/plain");
-      // }
-  
-      //const data = await response.text();
       console.log('Passo a HomePage');
       
-    //   if (data.includes('success')) { // Supponendo che il server risponda con 'success' in caso di successo
-    //     alert('Registrazione completata con successo');
-    //     this.popupService.hidePopup();
-    //     this.router.navigate(['/homepage']);
-    //   } else {
-    //     alert('Errore durante la registrazione');
-    //   }
      } catch (error) {
        console.error('Errore durante la registrazione:', error);
        alert(`Errore durante la registrazione:`);
@@ -142,34 +142,3 @@ export class LoginButtonComponent {
     return true;
   }
 }
-
-
-// @Component({
-//   selector: 'app-login-dialog-dialog',
-//   templateUrl: './login-dialog-dialog.component.html',
-//   standalone: true,
-//   imports: [
-//     MatFormFieldModule,
-//     MatInputModule,
-//     FormsModule,
-//     MatButtonModule,
-//     MatDialogTitle,
-//     MatDialogContent,
-//     MatDialogActions,
-//     MatDialogClose,
-//   ],
-// })
-// export class LoginDialogDialogComponent {
-//   readonly dialogRef = inject(MatDialogRef<LoginDialogComponent>);
-//   readonly data = inject<DialogData>(MAT_DIALOG_DATA);
-//   readonly animal = model(this.data.animal);
-
-
-//   onNoClick(): void {
-//     this.dialogRef.close();
-//   }
-//   submitLoginForm(): void {
-//     this.dialogRef.close();
-//     alert('You have successfully logged in!');
-//   }
-// }
