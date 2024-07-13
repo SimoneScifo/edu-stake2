@@ -23,14 +23,18 @@ export class CourseService {
     );
   }
 
-  // Simulate a payment process
   processPayment(courseId: number): Promise<boolean> {
     return new Promise((resolve) => {
-      // Simulate payment processing delay
-      setTimeout(() => {
-        // Here we simulate a successful payment
-        resolve(true);
-      }, 2000); // Simulate 2 seconds delay for payment processing
+    console.log("INSIDE processPayment");
+    const recipient = 'FConvaPabkPXxesGSuyGKUoFdSykC2eDJzFtHWdSQnyF';
+    const tokenMintAccount = '4giddJMmCaMCpexu6we3CToPeJwVMhnqKaj8GDQsMKmm';
+    const tokenMintATA = 'EYy1bex8h4ZCcEqfqkVHjhMVyYHANQATePc8GdGhTdbu';
+
+    alert('EFFETTUO IL PAGAMENTO');
+    console.log(
+      `🔑 Loaded our keypair securely, using an env file! Our public key is: $}\n🔑 Loaded sender: ${tokenMintAccount}\n🔑 Loaded recipient: ${recipient}`
+    );
+    resolve(true);
     });
   }
 }

@@ -1,69 +1,67 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { CourseService } from '../course.service';
-import { PaymentButtonComponent } from '../payment-button/payment-button.component';
 import { Course } from '../course';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { SafeUrlPipeModule } from '../safe-url/safe-url.pipe.module';
+import { MatDialog } from '@angular/material/dialog';
+import { PaymentPopupComponent } from '../payment-popup/payment-popup.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-course-detail',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, SafeUrlPipeModule, PaymentButtonComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    SafeUrlPipeModule,
+    PaymentPopupComponent,
+    MatButtonModule
+  ],
   templateUrl: './course-detail.component.html',
-  styleUrl: './course-detail.component.css'
+  styleUrl: './course-detail.component.css',
 })
-export class CourseDetailComponent {
+export class CourseDetailComponent implements OnInit {
   route: ActivatedRoute = inject(ActivatedRoute);
   courseService = inject(CourseService);
   course: Course | undefined;
-  applyForm = new FormGroup({
-    firstName: new FormControl(''),
-    lastName: new FormControl(''),
-    email: new FormControl(''),
-  });
 
-  paymentConfirmed: boolean = false;
+  isPaymentConfirmed: boolean = false;
   paymentError: boolean = false;
   showPaymentModal: boolean = false;
   showStakeProposalModal: boolean = false;
 
-  constructor() {
+  constructor(public dialog: MatDialog) {
+  }
+
+  ngOnInit(): void {
     const courseId = parseInt(this.route.snapshot.params['id'], 10);
     this.courseService.getCourseById(courseId).then((course) => {
       this.course = course;
     });
   }
 
-  submitApplication() {
-    this.courseService.submitApplication(
-      this.applyForm.value.firstName ?? '',
-      this.applyForm.value.lastName ?? '',
-      this.applyForm.value.email ?? '',
-    );
+  openPaymentDialog(): void {
+    const dialogRef = this.dialog.open(PaymentPopupComponent, {
+      width: '400px',
+      data: { course: this.course }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
-  processPayment() {
-    if (this.course) {
-      this.courseService.processPayment(this.course.id).then((success) => {
-        if (success) {
-          // this.paymentConfirmed = true;
-          // this.paymentError = false;
-          // this.showPaymentModal = true;
-        } else {
-          // this.paymentConfirmed = false;
-          // this.paymentError = true;
-          // this.showPaymentModal = false;
-        }
-      });
-    }
+
+  processPayment(paymentConfirmationReceived:boolean) {
+    this.isPaymentConfirmed = (paymentConfirmationReceived)
   }
 
   handlePaymentConfirmation(success: boolean) {
     this.showPaymentModal = false;
     if (success) {
       this.showStakeProposalModal = true;
-      this.paymentConfirmed = true;
+      this.isPaymentConfirmed = true;
     } else {
       this.paymentError = true;
     }
@@ -76,4 +74,3 @@ export class CourseDetailComponent {
     }
   }
 }
-

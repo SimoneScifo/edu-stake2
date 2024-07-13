@@ -1,11 +1,15 @@
 <h2 mat-dialog-title>We are almost there 😁</h2>
 <mat-form-field>
   <mat-label>PublicKey</mat-label>
-  <input matInput [(ngModel)]="PublicKey" />
+  <!-- <input matInput [(ngModel)]="PublicKey" /> -->
+    <input matInput />
+
 </mat-form-field>
 <mat-form-field>
   <mat-label>Email</mat-label>
-  <input matInput [(ngModel)]="email" />
+  <!-- <input matInput [(ngModel)]="email" /> -->
+    <input matInput />
+
 </mat-form-field>
 <button mat-button (click)="connectWalletLogin()">Connect Wallet</button>
 <mat-dialog-actions>

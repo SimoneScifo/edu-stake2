@@ -16,22 +16,13 @@
     </section>
     <section class="listing-apply">
         <h2 class="section-heading">Apply now to start learning</h2>
-        <form [formGroup]="applyForm" (submit)="submitApplication()">
-            <label for="first-name">First Name</label>
-            <input id="first-name" type="text" formControlName="firstName" />
-            <label for="last-name">Last Name</label>
-            <input id="last-name" type="text" formControlName="lastName" />
-            <label for="email">Email</label>
-            <input id="email" type="email" formControlName="email" />
-            <button type="submit" class="primary">Apply now</button>
-        </form>
     </section>
     <section class="payment">
         <h2 class="section-heading">Buy course</h2>
-        <app-payment-button *ngIf="!paymentConfirmed" class="btn btn-primary" (click)="processPayment()">Pay with wallet</app-payment-button>
-            <div *ngIf="paymentError" class="alert alert-danger mt-3">Payment failed. Please try again.</div>
-            <div *ngIf="paymentConfirmed" class="embed-responsive embed-responsive-16by9 mt-3">
-              <iframe class="embed-responsive-item" [src]="course?.videoUrl ?? '' | safeUrl" allowfullscreen></iframe>
-            </div>   
+        <button mat-raised-button (click)="openPaymentDialog()">Pay</button>
+        <div *ngIf="paymentError" class="alert alert-danger mt-3">Payment failed. Please try again.</div>
+        <div *ngIf="isPaymentConfirmed" class="embed-responsive embed-responsive-16by9 mt-3">
+          <iframe class="embed-responsive-item" [src]="course?.videoUrl ?? '' | safeUrl" allowfullscreen></iframe>
+        </div>   
     </section>
 </article>

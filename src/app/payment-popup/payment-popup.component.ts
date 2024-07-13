@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ModelSignal,Component, inject, model, signal} from '@angular/core';
+import {ChangeDetectionStrategy, ModelSignal,Component, inject, model, signal, Inject} from '@angular/core';
 import {FormsModule,FormGroup, FormControl} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {
@@ -16,9 +16,7 @@ import { CourseService } from '../course.service';
 import { ActivatedRoute } from '@angular/router';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
-import { P } from '@angular/cdk/keycodes';
 import { SafeUrlPipeModule } from '../safe-url/safe-url.pipe.module';
-
 
 export interface DialogData {
   publickey: string;
@@ -46,31 +44,28 @@ export interface DialogData {
 
 export class PaymentPopupComponent {
   route: ActivatedRoute = inject(ActivatedRoute);
-  readonly dialogRef = inject(MatDialogRef<PaymentPopupComponent>);
-  readonly data = inject<DialogData>(MAT_DIALOG_DATA);
-  readonly PublicKey = model(this.data.publickey);
-  readonly email = model(this.data.email);
 
-  constructor() {
-    const course = this.route
-  }  
-
-
-  getPublicKey() {
-
-  }
+  isPaymentConfirmed: boolean = false;
+  courseService = inject(CourseService);
+  course: Course | undefined;
+  constructor(
+    public dialogRef: MatDialogRef<PaymentPopupComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { course: Course }
+  ) {this.course = data.course;}
 
   submitPayment() {
-    const recipient = 'FConvaPabkPXxesGSuyGKUoFdSykC2eDJzFtHWdSQnyF';
-    const tokenMintAccount = '4giddJMmCaMCpexu6we3CToPeJwVMhnqKaj8GDQsMKmm';
-    const tokenMintATA = 'EYy1bex8h4ZCcEqfqkVHjhMVyYHANQATePc8GdGhTdbu';
-
-    console.log(
-      ` 🔑 Loaded our keypair securely, using an env file! Our public key is: $}\n🔑 Loaded sender: ${tokenMintAccount}\n🔑 Loaded recipient: ${recipient}`
-    );
-
-    this.dialogRef.close();
-    
+    if (this.course) {
+      this.courseService.processPayment(this.course.id).then((success) => {
+        if (success) {
+          this.isPaymentConfirmed = true;
+        } else {
+          // this.paymentConfirmed = false;
+          // this.paymentError = true;
+          // this.showPaymentModal = false;
+        }
+      });
+    }
+    this.dialogRef.close(this.isPaymentConfirmed);
   }
 
   async connectWalletLogin() {
@@ -86,7 +81,7 @@ export class PaymentPopupComponent {
         console.error('Failed to connect to wallet:', err);
       }
     } else {
-      alert('Phantom Wallet non trovato. Assicurati di averlo installato.');
+      alert('Phantom Wallet non trovato. Assicurati di averlo plugin installato.');
     }
   }
 
