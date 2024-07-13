@@ -1,12 +1,18 @@
 <main>
-  <a [routerLink]="['/']">
-    <header class="brand-name">
-      <img class="brand-logo" src="https://raw.githubusercontent.com/tonsag/tokenLogo/main/catLogo.png" alt="logo" aria-hidden="true" />
-      <div class="button-container">
-      <app-login-dialog></app-login-dialog>
-      </div>
-    </header>
-  </a>
+  <mat-toolbar>
+    <img
+      class="brand-logo"
+      src="https://raw.githubusercontent.com/tonsag/tokenLogo/main/catLogo.png"
+      alt="logo"
+      aria-hidden="true"
+      a
+      [routerLink]="['/']"
+    />
+    <span a [routerLink]="['/']">Edu Stake</span>
+    <span class="example-spacer"></span>
+    <app-login-dialog></app-login-dialog>
+  </mat-toolbar>
+
   <section class="content">
     <router-outlet></router-outlet>
   </section>
