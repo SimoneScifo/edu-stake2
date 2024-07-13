@@ -43,21 +43,21 @@ export class CourseDetailComponent {
       this.applyForm.value.email ?? '',
     );
   }
-  processPayment() {
-    if (this.course) {
-      this.courseService.processPayment(this.course.id).then((success) => {
-        if (success) {
-          this.paymentConfirmed = true;
-          this.paymentError = false;
-          this.showPaymentModal = true;
-        } else {
-          this.paymentConfirmed = false;
-          this.paymentError = true;
-          this.showPaymentModal = false;
-        }
-      });
-    }
-  }
+   processPayment() {
+  //   if (this.course) {
+  //     this.courseService.processPayment(this.course.id).then((success) => {
+  //       if (success) {
+  //         this.paymentConfirmed = true;
+  //         this.paymentError = false;
+  //         this.showPaymentModal = true;
+  //       } else {
+  //         this.paymentConfirmed = false;
+  //         this.paymentError = true;
+  //         this.showPaymentModal = false;
+  //       }
+  //     });
+  //   }
+   }
 
   handlePaymentConfirmation(success: boolean) {
     this.showPaymentModal = false;

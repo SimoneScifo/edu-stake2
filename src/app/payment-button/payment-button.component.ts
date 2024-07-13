@@ -146,9 +146,8 @@ export class PaymentButtonComponent {
       }
     });
   }
-
-  route: ActivatedRoute = inject(ActivatedRoute);
   courseService = inject(CourseService);
+  
   course: Course | undefined;
   applyForm = new FormGroup({
     firstName: new FormControl(''),
@@ -160,13 +159,6 @@ export class PaymentButtonComponent {
   paymentError: boolean = false;
   showPaymentModal: boolean = false;
   showStakeProposalModal: boolean = false;
-
-  constructor() {
-    const courseId = parseInt(this.route.snapshot.params['id'], 10);
-    this.courseService.getCourseById(courseId).then((course) => {
-      this.course = course;
-    });
-  }
 
   submitApplication() {
     this.courseService.submitApplication(
@@ -201,13 +193,7 @@ export class PaymentButtonComponent {
       this.paymentError = true;
     }
   }
-
-  handleStakeConfirmation(amount: number) {
-    this.showStakeProposalModal = false;
-    if (amount > 0) {
-      alert(`Staked ${amount} tokens on Solana blockchain!`);
-    }
-  }
+  
 
 }
 
