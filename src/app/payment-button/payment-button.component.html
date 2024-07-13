@@ -1,2 +1,6 @@
 <button mat-raised-button (click)="openDialog()">Pay With Wallet</button>
-<input type="hidden" id="login-wallet" class="input-field" placeholder="Wallet Public Key">
+<input type="hidden" id="payment-wallet" class="input-field" placeholder="Wallet Public Key">
+<div *NgIf="paymentError" class="alert alert-danger mt-3">Payment failed. Please try again.</div>
+<div *NgIf="paymentConfirmed" class="embed-responsive embed-responsive-16by9 mt-3">
+  <iframe class="embed-responsive-item" [src]="course?.videoUrl ?? '' | safeUrl" allowfullscreen></iframe>
+</div>

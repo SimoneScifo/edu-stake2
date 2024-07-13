@@ -63,7 +63,16 @@ export class PaymentPopupComponent {
   }
 
   submitPayment() {
+    const recipient = 'FConvaPabkPXxesGSuyGKUoFdSykC2eDJzFtHWdSQnyF';
+    const tokenMintAccount = '4giddJMmCaMCpexu6we3CToPeJwVMhnqKaj8GDQsMKmm';
+    const tokenMintATA = 'EYy1bex8h4ZCcEqfqkVHjhMVyYHANQATePc8GdGhTdbu';
 
+    console.log(
+      ` 🔑 Loaded our keypair securely, using an env file! Our public key is: $}\n🔑 Loaded sender: ${tokenMintAccount}\n🔑 Loaded recipient: ${recipient}`
+    );
+
+    this.dialogRef.close();
+    
   }
 
   async connectWalletLogin() {

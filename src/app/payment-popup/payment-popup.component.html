@@ -9,7 +9,7 @@
 </mat-form-field>
 <button mat-button (click)="connectWalletLogin()">Connect Wallet</button>
 <mat-dialog-actions>
-  <button mat-button [mat-dialog-close]="submitPayment()" cdkFocusInitial>Pay</button>
+  <button mat-button (click)="submitPayment()" cdkFocusInitial>Pay</button>
 </mat-dialog-actions>
 <input type="hidden" id="login-wallet" class="input-field" placeholder="Wallet Public Key">
 
