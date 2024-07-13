@@ -22,10 +22,8 @@
   <section class="listing-apply">
   </section>
   <section class="payment">
-    <div
-      *ngIf="isPaymentConfirmed"
-      class="embed-responsive embed-responsive-16by9 mt-3"
-    >
+    <div *ngIf="isPaymentConfirmed" class="embed-responsive embed-responsive-16by9 mt-3">
+    <p>Staked Token Amount: {{ selectedTokenAmount }}</p>
       <iframe
         class="embed-responsive-item"
         [src]="course?.videoUrl ?? '' | safeUrl"
@@ -34,12 +32,16 @@
     </div>
 
     <!-- Conditionally show the payment button if payment is not completed -->
-    <h2 class="section-heading" *ngIf="!isPaymentConfirmed">Buy course</h2>
+
+    <div *ngIf="!isPaymentConfirmed" class="embed-responsive embed-responsive-16by9 mt-3">
+        <h2 class="section-heading">Buy course</h2>
     <button
       mat-raised-button
-      *ngIf="!isPaymentConfirmed"
       (click)="openPaymentDialog()"
     >Pay</button>
+        </div>
+
+    
 
     <div *ngIf="paymentError" class="alert alert-danger mt-3">
       Payment failed. Please try again.

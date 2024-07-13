@@ -1,6 +1,14 @@
-import {ChangeDetectionStrategy, ModelSignal,Component, inject, model, signal, Inject} from '@angular/core';
-import {FormsModule,FormGroup, FormControl} from '@angular/forms';
-import {MatButtonModule} from '@angular/material/button';
+import {
+  ChangeDetectionStrategy,
+  ModelSignal,
+  Component,
+  inject,
+  model,
+  signal,
+  Inject,
+} from '@angular/core';
+import { FormsModule, FormGroup, FormControl } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import {
   MAT_DIALOG_DATA,
   MatDialog,
@@ -14,15 +22,14 @@ import {
 import { Course } from '../course';
 import { CourseService } from '../course.service';
 import { ActivatedRoute } from '@angular/router';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { SafeUrlPipeModule } from '../safe-url/safe-url.pipe.module';
-
+import { MatSliderModule } from '@angular/material/slider';
 export interface DialogData {
   publickey: string;
   email: string;
 }
-
 
 @Component({
   selector: 'app-payment-popup',
@@ -37,30 +44,37 @@ export interface DialogData {
     MatDialogActions,
     MatDialogClose,
     SafeUrlPipeModule,
+    MatSliderModule,
   ],
   templateUrl: './payment-popup.component.html',
-  styleUrl: './payment-popup.component.css'
+  styleUrl: './payment-popup.component.css',
 })
-
 export class PaymentPopupComponent {
   route: ActivatedRoute = inject(ActivatedRoute);
-
   courseService = inject(CourseService);
   course: Course | undefined;
+  selectedTokenAmount: number = 50;
+
   constructor(
     public dialogRef: MatDialogRef<PaymentPopupComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { course: Course }
-  ) {this.course = data.course;}
+  ) {
+    this.course = data.course;
+  }
 
   onPayClick() {
-    if (this.course) {
-      this.courseService.processPayment(this.course.id).then((success) => {
-        if (success) {
-          console.log('Payment successful');
-          this.dialogRef.close(true);
-        } 
-      });
-    }
+    setTimeout(() => {
+      if (this.course) {
+        this.courseService.processPayment(this.course.id).then((success) => {
+          if (success) {
+            this.dialogRef.close({
+              status: 'success',
+              tokenAmount: this.selectedTokenAmount,
+            });
+          }
+        });
+      }
+    }, 1000);
   }
 
   async connectWalletLogin() {
@@ -68,7 +82,8 @@ export class PaymentPopupComponent {
       try {
         const response = await (window as any).solana.connect();
         const walletPublicKey = response.publicKey.toString();
-        (document.getElementById('login-wallet') as HTMLInputElement).value = walletPublicKey;
+        (document.getElementById('login-wallet') as HTMLInputElement).value =
+          walletPublicKey;
         alert(`Wallet collegato: ${walletPublicKey}`);
         this.submitWalletLogin(walletPublicKey);
         console.log('Wallet connected:', walletPublicKey);
@@ -76,7 +91,9 @@ export class PaymentPopupComponent {
         console.error('Failed to connect to wallet:', err);
       }
     } else {
-      alert('Phantom Wallet non trovato. Assicurati di averlo plugin installato.');
+      alert(
+        'Phantom Wallet non trovato. Assicurati di averlo plugin installato.'
+      );
     }
   }
 
@@ -85,9 +102,9 @@ export class PaymentPopupComponent {
       const response = await fetch('/login', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ walletPublicKey })
+        body: JSON.stringify({ walletPublicKey }),
       });
 
       const data = await response.json();
@@ -100,5 +117,4 @@ export class PaymentPopupComponent {
       console.error('Error:', error);
     }
   }
-
 }

@@ -8,6 +8,7 @@ import { SafeUrlPipeModule } from '../safe-url/safe-url.pipe.module';
 import { MatDialog } from '@angular/material/dialog';
 import { PaymentPopupComponent } from '../payment-popup/payment-popup.component';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSliderModule } from '@angular/material/slider';
 
 @Component({
   selector: 'app-course-detail',
@@ -17,7 +18,8 @@ import { MatButtonModule } from '@angular/material/button';
     ReactiveFormsModule,
     SafeUrlPipeModule,
     PaymentPopupComponent,
-    MatButtonModule
+    MatButtonModule,
+    MatSliderModule
   ],
   templateUrl: './course-detail.component.html',
   styleUrl: './course-detail.component.css',
@@ -31,6 +33,8 @@ export class CourseDetailComponent implements OnInit {
   paymentError: boolean = false;
   showPaymentModal: boolean = false;
   showStakeProposalModal: boolean = false;
+  selectedTokenAmount: number = 0;
+
 
   constructor(public dialog: MatDialog) {
   }
@@ -49,9 +53,9 @@ export class CourseDetailComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-      if (result === true) {
+      if (result && result.status === 'success') {
         this.isPaymentConfirmed = true;
+        this.selectedTokenAmount = result.tokenAmount;
       }
     });
   }
