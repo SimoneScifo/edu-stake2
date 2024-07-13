@@ -2,7 +2,7 @@ import { Component, inject, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { CourseService } from '../course.service';
-import { PaymentDialogComponent } from '../payment-dialog/payment-dialog.component';
+import { PaymentButtonComponent } from '../payment-button/payment-button.component';
 import { Course } from '../course';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { SafeUrlPipeModule } from '../safe-url/safe-url.pipe.module';
@@ -10,7 +10,7 @@ import { SafeUrlPipeModule } from '../safe-url/safe-url.pipe.module';
 @Component({
   selector: 'app-course-detail',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, SafeUrlPipeModule, PaymentDialogComponent],
+  imports: [CommonModule, ReactiveFormsModule, SafeUrlPipeModule, PaymentButtonComponent],
   templateUrl: './course-detail.component.html',
   styleUrl: './course-detail.component.css'
 })

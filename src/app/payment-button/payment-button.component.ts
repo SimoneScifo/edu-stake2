@@ -29,14 +29,14 @@ export interface DialogData {
 }
 
 @Component({
-  selector: 'app-payment-dialog',
+  selector: 'app-payment-button',
   standalone: true,
   imports: [MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, PaymentPopupComponent],
-  templateUrl: './payment-dialog.component.html',
-  styleUrls: ['./payment-dialog.component.css'],
+  templateUrl: './payment-button.component.html',
+  styleUrls: ['./payment-button.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PaymentDialogComponent {
+export class PaymentButtonComponent {
   readonly animal = signal('');
   readonly publickey = model('');
   readonly dialog = inject(MatDialog);

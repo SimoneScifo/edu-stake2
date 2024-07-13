@@ -20,14 +20,14 @@ export interface DialogData {
 }
 
 @Component({
-  selector: 'app-login-dialog',
+  selector: 'app-login-button',
   standalone: true,
   imports: [MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
-  templateUrl: './login-dialog.component.html',
-  styleUrl: './login-dialog.component.css',
+  templateUrl: './login-button.component.html',
+  styleUrl: './login-button.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginDialogComponent {
+export class LoginButtonComponent {
   readonly animal = signal('');
   readonly name = model('');
   readonly dialog = inject(MatDialog);
