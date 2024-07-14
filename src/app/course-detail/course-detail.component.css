@@ -16,24 +16,28 @@
 }
 
 .video-container {
-  height: 600px;
-  width: 50%;
-  float: right;
+  width: 75%; /* Aumenta la larghezza del contenitore del video */
+  height: 500px; /* Aumenta l'altezza del contenitore del video */
   border-radius: 30px;
-  justify-content: end;
-  overflow: hidden;
-  margin-bottom: 10px;
+  display: flex; 
+  margin-left: auto; /* Sposta il video leggermente a sinistra */
+}
+
+#youtube-player {
+  width: 100%;
+  height: 100%;
 }
 
 .video-container iframe {
   width: 100%;
   height: 100%;
-  justify-content: end;
+  justify-content: flex-end;
+  float: right;
 }
 
 .button-container {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   width: 100%;
   margin-top: 10px;
 }
@@ -148,8 +152,6 @@ input {
   font-size: 12pt;
   color: var(--secondary-color);
 }
-
-
 
 .custom-button {
   margin: 0 10px;

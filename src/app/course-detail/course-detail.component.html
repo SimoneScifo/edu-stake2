@@ -18,20 +18,18 @@
       crossorigin
     />
     <!-- Conditionally show the video and buttons if payment is confirmed -->
+
     <div *ngIf="isPaymentConfirmed">
       <div class="video-container">
-        <iframe
-          id="youtube-player"
-          class="embed-responsive-item"
-          [src]="course?.videoUrl ?? '' | safeUrl"
-          allowfullscreen
-                  ></iframe>
-        <p>Staked Token Amount: {{ stakedTokenAmount }}</p>
+        <div 
+          id="youtube-player">
+          <p>Staked Token Amount: {{ stakedTokenAmount }}</p>
+        </div>
       </div>
       <div class="button-container">
-        <button mat-raised-button class="custom-button" >Play Video</button>
+        <button mat-raised-button class="custom-button" (click)="playVideo()">Play Video</button>
         <button mat-raised-button class="custom-button">Pause Timer</button>
-        <button mat-raised-button class="custom-button" [disabled]="!isCompletedEnabled" (click)="completeCourse()">Completed</button>
+        <button mat-raised-button class="custom-button" [disabled]="!isCompletedEnabled" (click)="navigateToOtherComponent()">Completed</button>
       </div>
     </div>
   </div>
@@ -46,7 +44,7 @@
   <section class="listing-apply">
   </section>
   <section class="payment">
-    <!-- Conditionally show the payment button if payment is not completed -->
+ <!--   Conditionally show the payment button if payment is not completed-->
     <div *ngIf="!isPaymentConfirmed" class="embed-responsive embed-responsive-16by9 mt-3">
       <h2 class="section-heading">Buy course</h2>
       <button mat-raised-button (click)="openPaymentDialog()">Pay</button>

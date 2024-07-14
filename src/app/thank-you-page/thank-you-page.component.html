@@ -1,17 +1,13 @@
 <!-- thank-you-page.component.html -->
 <div class="thank-you-container">
-    <h1>Thank You for Your Payment!</h1>
-    <p class="highlight">Invest in yourself by staking tokens to unlock more benefits! 🚀</p>
-    <video width="600" controls muted autoplay loop>
-      <source src="path/to/your/course-preview.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
-  
-    <h3>Choose the amount of tokens to stake:</h3>
-    <mat-slider min="0" max="100" step="1" showTickMarks discrete>
+    <h1>CONGRATULATION!</h1>
+    <p>🚀 You have successfully completed the course! 🚀</p>
+    <p class="highlight"> Here your reward {{ reward() }} </p>
+    <h3>See you Soon</h3>
+    <!--<mat-slider min="0" max="100" step="1" showTickMarks discrete>
         <input matSliderThumb [(ngModel)]="selectedTokenAmount">
       </mat-slider>
-    <p>Selected Token Amount: {{ selectedTokenAmount }}</p>
-    <button mat-button (click)="onStakeClick()" class="stake-button">Stake Tokens</button>
+    <p>Selected Token Amount: {{ selectedTokenAmount }}</p>-->
+    <button mat-button (click)="onStakeClick()" class="stake-button">Home</button>
   </div>
   
