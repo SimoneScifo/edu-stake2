@@ -13,7 +13,7 @@ import {
 } from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
-
+import {WalletService} from '../auth/wallet.service';
 export interface DialogData {
   name: string;
   email: string;
@@ -45,7 +45,8 @@ export class LoginPopupComponent {
 
   constructor(
     public dialogRef: MatDialogRef<LoginPopupComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private walletService: WalletService
   ) {}
 
   onNoClick(): void {
@@ -61,20 +62,12 @@ export class LoginPopupComponent {
     }
   }
 
-  async connectWalletLogin() {
-    if ((window as any).solana && (window as any).solana.isPhantom) {
-      try {
-        const response = await (window as any).solana.connect();
-        const walletPublicKey = response.publicKey.toString();
-        (document.getElementById('login-wallet') as HTMLInputElement).value = walletPublicKey;
-        alert(`Wallet collegato: ${walletPublicKey}`);
-        this.submitWalletLogin(walletPublicKey);
-        console.log('Wallet connected:', walletPublicKey);        
-      } catch (err) {
-        console.error('Failed to connect to wallet:', err);
-      }
-    } else {
-      alert('Phantom Wallet non trovato. Assicurati di averlo installato.');
+  async connectWalletLogin(): Promise<void> {
+    try {
+      await this.walletService.connectWallet();
+      this.dialogRef.close({ status: 'success', wallet: this.walletService.publicKey });
+    } catch (error) {
+      this.errorMessage = 'Wallet connection failed';
     }
   }
 
