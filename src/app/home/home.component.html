@@ -4,6 +4,12 @@
     <button class="primary" type="button" (click)="filterResults(filter.value)">Search</button>
   </form>
 </section>
+<div style="height: 1cm;"></div>
+<div>
+  <h2>
+    Don't wait, start learning!
+  </h2>
+</div>
 <section class="results">
   <app-course-preview *ngFor="let course of filteredCourseList"[course]="course"></app-course-preview>
 </section>

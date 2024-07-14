@@ -51,6 +51,13 @@ button {
   border-radius: 8px;
 }
 
+.section-title {
+  font-size: 1.5em;
+  color: var(--primary-color);
+  margin: 40px 0 20px; /* Spazio sopra e sotto il titolo della sezione */
+  text-align: center;
+}
+
 @media (min-width: 300px) and (max-width: 368px) {
   .results {
       grid-template-columns: repeat(2, 1fr);

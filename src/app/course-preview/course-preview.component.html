@@ -1,14 +1,20 @@
-<section class="listing">
-    <img
-      class="listing-photo"
-      [src]="course.imageUrl"
-      alt="Presentation image of {{ course.title }}"
-      crossorigin
-    />
-    <h2 class="listing-heading">{{ course.title }}</h2>
-    <p class="listing-course">
-      <span class="icon">⭐️</span> {{ course.rating }} 
-      <span class="icon">💬</span> {{ course.reviews }}
-    </p>
-    <a [routerLink]="['/course-detail', course.id]">Learn More</a>
-</section>
+<div class="listing-item">
+  <img
+    class="listing-photo"
+    [src]="course.imageUrl"
+    alt="Presentation image of {{ course.title }}"
+    crossorigin
+  />
+</div>
+<div class="listing-item">
+  <h2 class="listing-heading">{{ course.title }}</h2>
+</div>
+<div class="listing-item">
+  <p class="listing-course">
+    <span class="icon">⭐️</span> {{ course.rating }} 
+    <span class="icon">💬</span> {{ course.reviews }}
+  </p>
+</div>
+<div class="listing-item">
+  <a [routerLink]="['/course-detail', course.id]">Learn More</a>
+</div>

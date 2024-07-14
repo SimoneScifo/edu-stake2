@@ -1,17 +1,41 @@
 <article>
-  <img
-    class="listing-photo"
-    [src]="course?.imageUrl"
-    alt="Presentation image of {{ course?.title }}"
-    crossorigin
-  />
-  <section class="listing-description">
-    <h2 class="listing-heading">{{ course?.title }}</h2>
-    <p class="listing-course">
-      <span class="icon">⭐️</span> {{ course?.rating }}
-      <span class="icon">💬</span> {{ course?.reviews }}
-    </p>
-  </section>
+  <div class="media-container">
+    <div class="info-container">
+      <section class="listing-description">
+        <h2 class="listing-heading">{{ course?.title }}</h2>
+        <p class="listing-course">
+          <span class="icon">⭐️</span> {{ course?.rating }}
+          <span class="icon">💬</span> {{ course?.reviews }}
+        </p>
+      </section>
+      </div>
+    <!-- Conditionally show the image if payment is not confirmed -->
+    <img
+      *ngIf="!isPaymentConfirmed"
+      class="listing-photo"
+      [src]="course?.imageUrl"
+      alt="Presentation image of {{ course?.title }}"
+      crossorigin
+    />
+    <!-- Conditionally show the video and buttons if payment is confirmed -->
+    <div *ngIf="isPaymentConfirmed">
+      <div class="video-container">
+        <iframe
+          id="youtube-player"
+          class="embed-responsive-item"
+          [src]="course?.videoUrl ?? '' | safeUrl"
+          allowfullscreen
+                  ></iframe>
+        <p>Staked Token Amount: {{ stakedTokenAmount }}</p>
+      </div>
+      <div class="button-container">
+        <button mat-raised-button class="custom-button" >Play Video</button>
+        <button mat-raised-button class="custom-button">Pause Timer</button>
+        <button mat-raised-button class="custom-button" [disabled]="!isCompletedEnabled" (click)="completeCourse()">Completed</button>
+      </div>
+    </div>
+  </div>
+
   <section class="listing-features">
     <h2 class="section-heading">About this course</h2>
     <ul>
@@ -22,29 +46,28 @@
   <section class="listing-apply">
   </section>
   <section class="payment">
-    <div *ngIf="isPaymentConfirmed" class="embed-responsive embed-responsive-16by9 mt-3">
-    <p>Staked Token Amount: {{ stakedTokenAmount }}</p>
-      <iframe
-        class="embed-responsive-item"
-        [src]="course?.videoUrl ?? '' | safeUrl"
-        allowfullscreen
-      ></iframe>
-    </div>
-
     <!-- Conditionally show the payment button if payment is not completed -->
-
     <div *ngIf="!isPaymentConfirmed" class="embed-responsive embed-responsive-16by9 mt-3">
-        <h2 class="section-heading">Buy course</h2>
-    <button
-      mat-raised-button
-      (click)="openPaymentDialog()"
-    >Pay</button>
-        </div>
-
-    
+      <h2 class="section-heading">Buy course</h2>
+      <button mat-raised-button (click)="openPaymentDialog()">Pay</button>
+    </div>
 
     <div *ngIf="paymentError" class="alert alert-danger mt-3">
       Payment failed. Please try again.
+    </div>
+
+    <!-- Course list to be displayed after payment confirmation -->
+    <div *ngIf="isPaymentConfirmed" class="course-list">
+      <h2 class="section-heading">Related Courses</h2>
+      <div *ngFor="let relatedCourse of relatedCourses; let i = index" class="course-item">
+        <img [src]="course?.imageUrl" 
+             [ngClass]="{'course-thumbnail': i !== 0, 'course-thumbnail-clear': i === 0}"
+             alt="Preview image of {{ course?.title }}">
+        <div class="course-info">
+          <h3>{{ course?.title }} - {{ relatedCourse.title }}</h3>
+          <p>Instructor: {{ course?.instructor }}</p>
+        </div>
+      </div>
     </div>
   </section>
 </article>
