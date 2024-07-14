@@ -27,6 +27,7 @@ import { MatInputModule } from '@angular/material/input';
 import { SafeUrlPipeModule } from '../safe-url/safe-url.pipe.module';
 import { MatSliderModule } from '@angular/material/slider';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 export interface DialogData {
   publickey: string;
   email: string;
@@ -46,6 +47,7 @@ export interface DialogData {
     MatDialogClose,
     SafeUrlPipeModule,
     MatSliderModule,
+    CommonModule
   ],
   templateUrl: './payment-popup.component.html',
   styleUrl: './payment-popup.component.css',
@@ -55,6 +57,7 @@ export class PaymentPopupComponent {
   courseService = inject(CourseService);
   course: Course | undefined;
   selectedTokenAmount: number = 50;
+  isPaymentCompleted: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<PaymentPopupComponent>,
@@ -69,13 +72,22 @@ export class PaymentPopupComponent {
       if (this.course) {
         this.courseService.processPayment(this.course.id).then((success) => {
           if (success) {
-            this.dialogRef.close({status: 'success'});
-
-            this.router.navigate(['/app-thank-you-page']);
+            this.isPaymentCompleted = true;
+            // this.dialogRef.close({status: 'success'});
+            // if (this.course !== undefined) {
+            //   this.router.navigate(['/app-thank-you-page'], {queryParams: {id: this.course.id}});
+            // }
           }
         });
       }
     }, 1000);
+  }
+
+  onStakeClick() {
+    this.dialogRef.close({
+      status: 'success',
+      tokenAmount: this.selectedTokenAmount,
+    });
   }
 
   async connectWalletLogin() {

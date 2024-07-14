@@ -1,5 +1,5 @@
-<h2 mat-dialog-title>Pay for {{ data.course.title }}</h2>
-<div mat-dialog-content>
+<div mat-dialog-content *ngIf="!isPaymentCompleted">
+  <h2 mat-dialog-title>Pay for {{ data.course.title }}</h2>
   <p>Price: {{ data.course.price}}</p>
   <!-- <mat-slider min="0" max="100" step="1" showTickMarks discrete>
     <input matSliderThumb [(ngModel)]="selectedTokenAmount">
@@ -7,7 +7,7 @@
   <p>Final price 💰: {{ selectedTokenAmount + data.course.price }}</p>
   <p>Possible reward 🎉: {{ selectedTokenAmount * 0.1 }}</p>
   <p>Possible penalty 😰: {{ selectedTokenAmount * 0.05 }}</p> -->
-</div>
+
 <mat-form-field>
   <mat-label>PublicKey</mat-label>
   <!-- <input matInput [(ngModel)]="PublicKey" /> -->
@@ -20,10 +20,23 @@
     <input matInput />
 
 </mat-form-field>
-<div mat-dialog-actions>
+</div>
+<div mat-dialog-actions *ngIf="!isPaymentCompleted">
   <button mat-button (click)="connectWalletLogin()">Connect Wallet</button>
   <button mat-button (click)="onPayClick()" cdkFocusInitial>Pay</button>
-
+</div>
+<div mat-dialog-actions *ngIf="isPaymentCompleted">
+  <div class="thank-you-container">
+    <h1>Thank You for Your Payment!</h1>
+    <p class="highlight">Invest in yourself by staking tokens to unlock more benefits! 🚀</p>
+  
+    <h3>Choose the amount of tokens to stake:</h3>
+    <mat-slider min="0" max="100" step="1" showTickMarks discrete>
+        <input matSliderThumb [(ngModel)]="selectedTokenAmount">
+      </mat-slider>
+    <p>Selected Token Amount: {{ selectedTokenAmount }}</p>
+    <button mat-button (click)="onStakeClick()" cdkFocusInitial>Stake Tokens</button>
+  </div>
 </div>
 
 <input type="hidden" id="login-wallet" class="input-field" placeholder="Wallet Public Key">
