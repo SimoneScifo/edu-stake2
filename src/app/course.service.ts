@@ -5,7 +5,7 @@ import { Course } from './course';
   providedIn: 'root'
 })
 export class CourseService {
-  url = 'http://localhost:3000/courses';
+  url = 'http://18.159.216.35:3000/courses';
 
   async getAllCourses(): Promise<Course[]> {
     const data = await fetch(this.url);
